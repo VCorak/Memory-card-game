@@ -2,9 +2,40 @@ let clickedCard = null;
 let preventClick = false;
 let comboFind = 0;
 
-function onCardClicked(event) {
-    const target = event.currentTarget;
 
+// first had hardcoded code with "data-color="purple" class="card purple color-hidden" in div cards, but with this array I can get rid of it
+// and get colors random
+let colors = [
+    'red',
+    'blue',
+    'green',
+    'yellow',
+    'purple',
+    'orange',
+    'lime',
+    'coral'
+];
+
+const cards = [...document.querySelectorAll('.card')];
+for (let color of colors) {
+    const cardAIndex = parseInt(Math.random() * cards.length);
+    const cardA = cards[cardAIndex];
+    cards.splice(cardAIndex, 1);
+    cardA.className += ` ${color}`;
+    cardA.setAttribute('data-color', color);
+
+    const cardBIndex = parseInt(Math.random() * cards.length);
+    const cardB = cards[cardBIndex];
+    cards.splice(cardBIndex, 1);
+    cardB.className += ` ${color}`;
+    cardB.setAttribute('data-color', color);
+
+}
+
+
+function onCardClicked(event) {
+
+    const target = event.currentTarget;
     if (
         preventClick ||
         target === clickedCard
